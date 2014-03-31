@@ -56,7 +56,9 @@ function dataobj:OnTooltipShow()
           name = speciesName
         end
 
-        self:AddDoubleLine(string.format("Level %d %s", level, name), string.format("%d/%d (%.1f%%)", health, maxHealth, (100.0 * health / maxHealth)))
+        local r, g, b, hex = GetItemQualityColor(rarity - 1)
+
+        self:AddDoubleLine(string.format("Level %d %s", level, name), string.format("%d/%d (%.1f%%)", health, maxHealth, (100.0 * health / maxHealth)), r, g, b)
         slot = slot + 1
         if slot > 3 then
           break
