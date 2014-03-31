@@ -1,0 +1,10 @@
+## Interface: 50400
+## Title: Pet Health
+## Notes: Battle Pet health watcher
+## Author: Pecio
+## SavedVariables: PetHealth-Broker
+## LoadManagers: AddonLoader
+## X-LoadOn-Always: delayed
+## OptionalDeps: Ace3,BrokerPack
+Common\common.xml
+pack.xml
