@@ -15,6 +15,7 @@ f:SetScript("OnUpdate", function(self, elap)
   local current = {}
   local max = {}
   local icons = {}
+  local color = {}
   local slot = 1
   for i = 1, total do
     local petID, speciesID, owned, customName, level, favorite, isRevoked, speciesName, icon, petType, companionID, tooltip, description, isWild, canBattle, isTradeable, isUnique, obtainable = C_PetJournal.GetPetInfoByIndex(i)
@@ -25,6 +26,7 @@ f:SetScript("OnUpdate", function(self, elap)
         current[slot] = health
         max[slot] = maxHealth
         icons[slot] = icon
+        color[slot] = dataobj:GetHealthColor(health, maxHealth)
 
         slot = slot + 1
         if slot > 3 then
@@ -33,7 +35,7 @@ f:SetScript("OnUpdate", function(self, elap)
       end
     end
   end
-  dataobj.text = string.format("|T%s:16|t %d/%d |T%s:16|t %d/%d |T%s:16|t %d/%d", icons[1], current[1], max[1], icons[2], current[2], max[2], icons[3], current[3], max[3])
+  dataobj.text = string.format("|T%s:16|t |cFF%s%d|r/%d |T%s:16|t |cFF%s%d|r/%d |T%s:16|t |cFF%s%d|r/%d", icons[1], color[1], current[1], max[1], icons[2], color[2], current[2], max[2], icons[3], color[3], current[3], max[3])
 end)
 
 function dataobj:OnTooltipShow()
@@ -79,4 +81,21 @@ end
 
 function dataobj:OnLeave()
   GameTooltip:Hide()
+end
+
+function dataobj:GetHealthColor(current, max)
+  local pct = (100.0 * current) / max -- just so we get a float
+  if pct == 100.0 then
+    return "00FF00"
+  elseif pct > 75.0 then
+    return "00DD00"
+  elseif pct > 50.0 then
+    return "88DD00"
+  elseif pct > 25.0 then
+    return "DD8800"
+  elseif pct > 0.0 then
+    return "DD0000"
+  else
+    return "FF0000"
+  end
 end
