@@ -64,7 +64,7 @@ function dataobj:OnTooltipShow()
         -- status
         local healthColor = dataobj:GetHealthColor(health, maxHealth)
 
-        self:AddDoubleLine(string.format("Level %d %s", level, name), string.format("|cFF%s%d|r/%d (%.1f%%)", healthColor, health, maxHealth, (100.0 * health / maxHealth)), r, g, b)
+        self:AddDoubleLine(string.format("Level %d %s", level, name), string.format("|cFF%s%d|r/%d (%.1f%%)", healthColor, health, maxHealth, (100.0 * health / maxHealth)), r, g, b, 1, 1, 1)
         slot = slot + 1
         if slot > 3 then
           break
