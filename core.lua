@@ -65,10 +65,18 @@ function dataobj:OnTooltipShow()
         local healthColor = dataobj:GetHealthColor(health, maxHealth)
 
         self:AddDoubleLine(string.format("Level %d %s", level, name), string.format("|cFF%s%d|r/%d (%.1f%%)", healthColor, health, maxHealth, (100.0 * health / maxHealth)), r, g, b, 1, 1, 1)
+
+        local class = _G["BATTLE_PET_NAME_"..petType]
+        local speciesID, customName, level, xp, maxXp, displayID, isFavorite, name, icon, petType, creatureID, sourceText, description, isWild, canBattle, tradable, unique, obtainable = C_PetJournal.GetPetInfoByPetID(petID)
+        self:AddDoubleLine(string.format("%s", class), string.format("%d/%d XP", xp, maxXp), 1, 1, 1, 1, 1, 1)
+
         slot = slot + 1
         if slot > 3 then
           break
         end
+
+        -- Separator
+        self:AddLine(" ")
       end
     end
   end
