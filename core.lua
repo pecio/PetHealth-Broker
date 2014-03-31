@@ -20,7 +20,7 @@ f:SetScript("OnUpdate", function(self, elap)
   local i1 = C_PetBattles.GetIcon(1, 1)
   local i2 = C_PetBattles.GetIcon(1, 2)
   local i3 = C_PetBattles.GetIcon(1, 3)
-  dataobj.text = string.format("%s %d/%d", i1, c1, m1)
+  dataobj.text = string.format("|T%s:16|t %d/%d", i1, c1, m1)
 end)
 
 function dataobj:OnTooltipShow()
