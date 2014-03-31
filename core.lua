@@ -33,7 +33,7 @@ f:SetScript("OnUpdate", function(self, elap)
       end
     end
   end
-  dataobj.text = string.format("|T%s:16|t %d/%d", icons[1], current[1], max[1])
+  dataobj.text = string.format("|T%s:16|t %d/%d |T%s:16|t %d/%d |T%s:16|t %d/%d", icons[1], current[1], max[1], icons[2], current[2], max[2], icons[3], current[3], max[3])
 end)
 
 function dataobj:OnTooltipShow()
