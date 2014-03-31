@@ -18,7 +18,7 @@ f:SetScript("OnUpdate", function(self, elap)
   local slot = 1
   for i = 1, total do
     local petID, speciesID, owned, customName, level, favorite, isRevoked, speciesName, icon, petType, companionID, tooltip, description, isWild, canBattle, isTradeable, isUnique, obtainable = C_PetJournal.GetPetInfoByIndex(i)
-    if owned then
+    if canBattle and owned then
       local slotted = C_PetJournal.PetIsSlotted(petID)
       if slotted then
         local health, maxHealth, power, speed, rarity = C_PetJournal.GetPetStats(petID)
