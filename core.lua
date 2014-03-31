@@ -3,7 +3,7 @@
 local ldb = LibStub:GetLibrary("LibDataBroker-1.1")
 
 local UPDATEPERIOD, elapsed = 2, 0
-local dataobj = ldb:NewDataObject("Pet Health", { type = "data source", text = "75.0 FPS"})
+local dataobj = ldb:NewDataObject("Pet Health", { type = "data source", text = "Pet Health Info"})
 local f = CreateFrame("frame")
 
 f:SetScript("OnUpdate", function(self, elap)
