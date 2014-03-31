@@ -38,6 +38,33 @@ end)
 
 function dataobj:OnTooltipShow()
   self:AddLine("Pet Health")
+
+  -- Iterate all pets
+  local total, owned = C_PetJournal.GetNumPets()
+  local slot = 1
+  for i = 1, total do
+    local petID, speciesID, owned, customName, level, favorite, isRevoked, speciesName, icon, petType, companionID, tooltip, description, isWild, canBattle, isTradeable, isUnique, obtainable = C_PetJournal.GetPetInfoByIndex(i)
+    if canBattle and owned then
+      local slotted = C_PetJournal.PetIsSlotted(petID)
+      if slotted then
+        local health, maxHealth, power, speed, rarity = C_PetJournal.GetPetStats(petID)
+
+        local name
+        if customName then
+          name = customName
+        else
+          name = speciesName
+        end
+
+        self:AddDoubleLine(string.format("Level %d %s", level, name), string.format("%d/%d (%.1f%%)", health, maxHealth, (100.0 * health / maxHealth)))
+        slot = slot + 1
+        if slot > 3 then
+          break
+        end
+      end
+    end
+  end
+ 
 end
 
 function dataobj:OnEnter()
