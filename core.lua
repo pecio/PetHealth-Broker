@@ -11,8 +11,16 @@ f:SetScript("OnUpdate", function(self, elap)
   if elapsed < UPDATEPERIOD then return end
 
   elapsed = 0
-  local fps = GetFramerate()
-  dataobj.text = string.format("%.1f FPS", fps)
+  local c1 = C_PetBattles.GetHealth(1, 1)
+  local c2 = C_PetBattles.GetHealth(1, 2)
+  local c3 = C_PetBattles.GetHealth(1, 3)
+  local m1 = C_PetBattles.GetMaxHealth(1, 1)
+  local m2 = C_PetBattles.GetMaxHealth(1, 2)
+  local m3 = C_PetBattles.GetMaxHealth(1, 3)
+  local i1 = C_PetBattles.GetIcon(1, 1)
+  local i2 = C_PetBattles.GetIcon(1, 2)
+  local i3 = C_PetBattles.GetIcon(1, 3)
+  dataobj.text = string.format("$s %d/%d", i1, c1, m1)
 end)
 
 function dataobj:OnTooltipShow()
