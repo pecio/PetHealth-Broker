@@ -12,21 +12,18 @@ f:SetScript("OnUpdate", function(self, elap)
 
   elapsed = 0
   local total, owned = C_PetJournal.GetNumPets()
-  local current = {}
-  local max = {}
-  local icons = {}
-  local color = {}
   local slot = 1
+  local result = ""
   for i = 1, total do
     local petID, speciesID, owned, customName, level, favorite, isRevoked, speciesName, icon, petType, companionID, tooltip, description, isWild, canBattle, isTradeable, isUnique, obtainable = C_PetJournal.GetPetInfoByIndex(i)
     if canBattle and owned then
       local slotted = C_PetJournal.PetIsSlotted(petID)
       if slotted then
         local health, maxHealth, power, speed, rarity = C_PetJournal.GetPetStats(petID)
-        current[slot] = health
-        max[slot] = maxHealth
-        icons[slot] = icon
-        color[slot] = dataobj:GetHealthColor(health, maxHealth)
+
+        local color = dataobj:GetHealthColor(health, maxHealth)
+
+        result = result .. string.format("|T%s:16|t |cFF%s%d|r/%d ", icon, color, health, maxHealth)
 
         slot = slot + 1
         if slot > 3 then
@@ -35,7 +32,13 @@ f:SetScript("OnUpdate", function(self, elap)
       end
     end
   end
-  dataobj.text = string.format("|T%s:16|t |cFF%s%d|r/%d |T%s:16|t |cFF%s%d|r/%d |T%s:16|t |cFF%s%d|r/%d", icons[1], color[1], current[1], max[1], icons[2], color[2], current[2], max[2], icons[3], color[3], current[3], max[3])
+
+  if slot <= 3 then
+    for i = slot, 3 do
+      result = result .. "|cFF888888Empty?|r "
+    end
+  end
+  dataobj.text = result
 end)
 
 function dataobj:OnTooltipShow()
