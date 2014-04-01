@@ -86,8 +86,8 @@ function dataobj:OnTooltipShow()
 
   if slot <= 3 then
     for i = slot, 3 do
-      self:AddLine("Empty or filtered slot")
-      self:AddLine("We can only show pets visible in Pet Journal")
+      self:AddLine("Empty or filtered slot", 0.5, 0.5, 0.5)
+      self:AddLine("We can only show pets visible in Pet Journal", 0.5, 0.5, 0.5)
       if i < 3 then
         self:AddLine(" ")
       end
