@@ -95,6 +95,22 @@ function dataobj:OnTooltipShow()
   end
 end
 
+function dataobj:OnClick(button)
+  if (button == "LeftButton") then
+    if IsShiftKeyDown() then
+      print("Clearing all pet filters")
+      C_PetJournal.AddAllPetSourcesFilter()
+      C_PetJournal.AddAllPetTypesFilter()
+      C_PetJournal.SetSearchFilter("")
+    else
+      print("Opening pet journal")
+      TogglePetJournal(2)
+    end
+  elseif (button == "RightButton") then
+    print("pending")
+  end
+end
+
 function dataobj:OnEnter()
   GameTooltip:SetOwoner(self, "ANCHOR_NONE")
   GameTooltip:SetPoint("TOPLEFT", self, "BOTTOMLEFT")
