@@ -35,54 +35,38 @@ end)
 function dataobj:OnTooltipShow()
   self:AddLine("Pet Health")
 
-  -- Iterate all pets
-  local total, owned = C_PetJournal.GetNumPets()
-  local slot = 1
-  for i = 1, total do
-    local petID, speciesID, owned, customName, level, favorite, isRevoked, speciesName, icon, petType, companionID, tooltip, description, isWild, canBattle, isTradeable, isUnique, obtainable = C_PetJournal.GetPetInfoByIndex(i)
-    if canBattle and owned then
-      local slotted = C_PetJournal.PetIsSlotted(petID)
-      if slotted then
-        local health, maxHealth, power, speed, rarity = C_PetJournal.GetPetStats(petID)
+  for slot = 1, 3 do
+    local petID, ability1, ability2, ability3, locked = C_PetJournal.GetPetLoadOutInfo(slot)
 
-        local name
-        if customName then
-          name = customName
-        else
-          name = speciesName
-        end
-
-        -- rarity
-        local r, g, b, hex = GetItemQualityColor(rarity - 1)
-
-        -- status
-        local healthColor = dataobj:GetHealthColor(health, maxHealth)
-
-        self:AddDoubleLine(string.format("Level %d %s", level, name), string.format("|cFF%s%d|r/%d (%.1f%%)", healthColor, health, maxHealth, (100.0 * health / maxHealth)), r, g, b, 1, 1, 1)
-
-        local class = _G["BATTLE_PET_NAME_"..petType]
-        local speciesID, customName, level, xp, maxXp, displayID, isFavorite, name, icon, petType, creatureID, sourceText, description, isWild, canBattle, tradable, unique, obtainable = C_PetJournal.GetPetInfoByPetID(petID)
-        self:AddDoubleLine(string.format("%s", class), string.format("%d/%d XP", xp, maxXp), 1, 1, 1, 1, 1, 1)
-
-        slot = slot + 1
-        if slot > 3 then
-          break
-        end
-
-        -- Separator
-        self:AddLine(" ")
-      end
+    if locked then
+      break
     end
-  end
 
-  if slot <= 3 then
-    for i = slot, 3 do
-      self:AddLine("Empty or filtered slot", 0.5, 0.5, 0.5)
-      self:AddLine("We can only show pets visible in Pet Journal", 0.5, 0.5, 0.5)
-      if i < 3 then
-        self:AddLine(" ")
-      end
+    -- Separator
+    if slot > 1 then
+      self:AddLine(" ")
     end
+
+    local speciesID, customName, level, xp, maxXp, displayID, isFavorite, name, icon, petType, creatureID, sourceText, description, isWild, canBattle, tradable, unique, obtainable = C_PetJournal.GetPetInfoByPetID(petID)
+    local health, maxHealth, power, speed, rarity = C_PetJournal.GetPetStats(petID)
+    -- rarity
+    local r, g, b, hex = GetItemQualityColor(rarity - 1)
+
+    -- status
+    local healthColor = dataobj:GetHealthColor(health, maxHealth)
+
+    local displayName
+    if customName then
+      displayName = customName
+    else
+      displayName = name -- Species name
+    end
+
+    self:AddDoubleLine(string.format("[%d] %s", level, displayName), string.format("|cFF%s%d|r/%d (%.1f%%)", healthColor, health, maxHealth, (100.0 * health / maxHealth)), r, g, b, 1, 1, 1)
+
+    local class = _G["BATTLE_PET_NAME_"..petType]
+    local speciesID, customName, level, xp, maxXp, displayID, isFavorite, name, icon, petType, creatureID, sourceText, description, isWild, canBattle, tradable, unique, obtainable = C_PetJournal.GetPetInfoByPetID(petID)
+    self:AddDoubleLine(string.format("%s", class), string.format("%d/%d XP", xp, maxXp), 1, 1, 1, 1, 1, 1)
   end
 end
 
