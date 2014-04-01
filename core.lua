@@ -15,12 +15,18 @@ local options = {
   handler = PetHealthBroker,
   type = 'group',
   args = {
-    pct = {
-      type = 'toggle',
-      name = 'Show Percentages',
-      desc = 'Show Percentages instead of current/max health',
-      set = function(info, val) PetHealthBroker.enabled = val end,
-      get = function(info) return PetHealthBroker.enabled end
+    main = {
+      type = "group",
+      name = "Main",
+      args = {
+        pct = {
+          type = 'toggle',
+          name = 'Show Percentages',
+          desc = 'Show Percentages instead of current/max health',
+          set = function(info, val) PetHealthBroker.enabled = val end,
+          get = function(info) return PetHealthBroker.enabled end
+        }
+      }
     }
   }
 }
@@ -36,6 +42,8 @@ function PetHealthBroker:OnEnable()
     AceConfigReg:RegisterOptionsTable("Broker", brokerOptions)
     LibStub("AceConfigDialog-3.0"):AddToBlizOptions("Broker", "Broker")
   end
+
+  options.args.profile = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.config)
 
   AceConfigReg:RegisterOptionsTable(PetHealthBroker.name, options)
   PetHealthBroker.menu = LibStub("AceConfigDialog-3.0"):AddToBlizOptions("PetHealth-Broker", "Pet Health", "Broker")
