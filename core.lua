@@ -23,8 +23,8 @@ local options = {
           type = 'toggle',
           name = 'Show Percentages',
           desc = 'Show Percentages instead of current/max health',
-          set = function(info, val) PetHealthBroker.config.pct = val end,
-          get = function(info) return PetHealthBroker.config.pct end
+          set = function(info, val) PetHealthBroker.config.profile.pct = val end,
+          get = function(info) return PetHealthBroker.config.profile.pct end
         }
       }
     }
@@ -69,7 +69,11 @@ f:SetScript("OnUpdate", function(self, elap)
 
     local color = dataobj:GetHealthColor(health, maxHealth)
 
-    result = result .. string.format("|T%s:16|t |cFF%s%d|r/%d ", icon, color, health, maxHealth)
+    if PetHealthBroker.config.profile.pct then
+      result = result .. string.format("|T%s:16|t |cFF%s%.1f|r|cFFFFFFFF%%|r ", icon, color, (health * 100.0) / maxHealth)
+    else
+      result = result .. string.format("|T%s:16|t |cFF%s%d|r/%d ", icon, color, health, maxHealth)
+    end
 
     if locked then
       break
