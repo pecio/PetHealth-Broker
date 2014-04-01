@@ -4,7 +4,7 @@ local ldb = LibStub:GetLibrary("LibDataBroker-1.1")
 local AceConfig = LibStub("AceConfig-3.0")
 local AceConfigReg = LibStub("AceConfigRegistry-3.0")
 
-local UPDATEPERIOD, elapsed = 2, 0
+local UPDATEPERIOD, elapsed = 0.5, 0
 local dataobj = ldb:NewDataObject("Pet Health", { type = "data source", text = "Pet Health Info"})
 local f = CreateFrame("frame")
 
