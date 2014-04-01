@@ -54,6 +54,10 @@ function PetHealthBroker:OnEnable()
 
   AceConfigReg:RegisterOptionsTable(PetHealthBroker.name, options)
   PetHealthBroker.menu = LibStub("AceConfigDialog-3.0"):AddToBlizOptions("PetHealth-Broker", "Pet Health", "Broker")
+
+  -- Get and store Revive Battle Pets icon
+  local name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = GetSpellInfo(125439)
+  PetHealthBroker.RVPicon = icon
 end
 
 function PetHealthBroker:OnInitialize()
@@ -84,6 +88,19 @@ f:SetScript("OnUpdate", function(self, elap)
 
     if locked then
       break
+    end
+  end
+
+  if PetHealthBroker.config.profile.cooldown then
+    result = result .. string.format("|T%s:16|t ", PetHealthBroker.RVPicon)
+    local start, duration, enabled = GetSpellCooldown(125439)
+    local cooldown = start + duration - GetTime()
+    if cooldown > 0 then
+      local min = math.floor(cooldown / 60)
+      local seg = cooldown % 60
+      result = result .. string.format("|cFFFFFFFF%d:%02d|r", min, seg)
+    else
+      result = result .. string.format("|cFF00FF00%s|r", "Ready")
     end
   end
 
