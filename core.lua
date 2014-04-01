@@ -23,8 +23,8 @@ local options = {
           type = 'toggle',
           name = 'Show Percentages',
           desc = 'Show Percentages instead of current/max health',
-          set = function(info, val) PetHealthBroker.enabled = val end,
-          get = function(info) return PetHealthBroker.enabled end
+          set = function(info, val) PetHealthBroker.config.pct = val end,
+          get = function(info) return PetHealthBroker.config.pct end
         }
       }
     }
