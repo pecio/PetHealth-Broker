@@ -57,7 +57,7 @@ function PetHealthBroker:OnEnable()
 
   -- Get and store Revive Battle Pets icon
   local name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = GetSpellInfo(125439)
-  PetHealthBroker.RVPicon = icon
+  PetHealthBroker.RBPicon = icon
 end
 
 function PetHealthBroker:OnInitialize()
@@ -92,7 +92,7 @@ f:SetScript("OnUpdate", function(self, elap)
   end
 
   if PetHealthBroker.config.profile.cooldown then
-    result = result .. string.format("|T%s:16|t ", PetHealthBroker.RVPicon)
+    result = result .. string.format("|T%s:16|t ", PetHealthBroker.RBPicon)
     local start, duration, enabled = GetSpellCooldown(125439)
     local cooldown = start + duration - GetTime()
     if cooldown > 0 then
