@@ -72,16 +72,7 @@ end
 
 function dataobj:OnClick(button)
   if (button == "LeftButton") then
-    if IsShiftKeyDown() then
-      print("Clearing pet filters")
-      C_PetJournal.SetFlagFilter(LE_PET_JOURNAL_FLAG_COLLECTED, true)
-      C_PetJournal.AddAllPetSourcesFilter()
-      C_PetJournal.AddAllPetTypesFilter()
-      C_PetJournal.SetSearchFilter("")
-    else
-      print("Opening pet journal")
-      TogglePetJournal(2)
-    end
+    TogglePetJournal(2)
   elseif (button == "RightButton") then
     print("pending")
   end
