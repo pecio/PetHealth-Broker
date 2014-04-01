@@ -1,10 +1,46 @@
 -- PetHealth-Broker
 -------------------
 local ldb = LibStub:GetLibrary("LibDataBroker-1.1")
+local AceConfig = LibStub("AceConfig-3.0")
+local AceConfigReg = LibStub("AceConfigRegistry-3.0")
 
 local UPDATEPERIOD, elapsed = 2, 0
 local dataobj = ldb:NewDataObject("Pet Health", { type = "data source", text = "Pet Health Info"})
 local f = CreateFrame("frame")
+
+PetHealthBroker = LibStub("AceAddon-3.0"):NewAddon("PetHealth-Broker")
+
+local options = {
+  name = "PetHealth-Broker",
+  handler = PetHealthBroker,
+  type = 'group',
+  args = {
+    pct = {
+      type = 'toggle',
+      name = 'Show Percentages',
+      desc = 'Show Percentages instead of current/max health',
+      set = function(info, val) PetHealthBroker.enabled = val end,
+      get = function(info) return PetHealthBroker.enabled end
+    }
+  }
+}
+
+function PetHealthBroker:OnEnable()
+  local brokerOptions = AceConfigReg:GetOptionsTable("Broker", "dialog", "LibDataBroker-1.1")
+  if not brokerOptions then
+    brokerOptions = {
+      type = "group",
+      name = "Broker",
+      args = {}
+    }
+    AceConfigReg:RegisterOptionsTable("Broker", brokerOptions)
+    LibStub("AceConfigDialog-3.0"):AddToBlizOptions("Broker", "Broker")
+  end
+
+  AceConfigReg:RegisterOptionsTable(PetHealthBroker.name, options)
+  PetHealthBroker.menu = LibStub("AceConfigDialog-3.0"):AddToBlizOptions("PetHealth-Broker", "Pet Health", "Broker")
+  print("wassup")
+end
 
 f:SetScript("OnUpdate", function(self, elap)
   elapsed = elapsed + elap
