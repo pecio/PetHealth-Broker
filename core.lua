@@ -11,33 +11,24 @@ f:SetScript("OnUpdate", function(self, elap)
   if elapsed < UPDATEPERIOD then return end
 
   elapsed = 0
-  local total, owned = C_PetJournal.GetNumPets()
-  local slot = 1
+
   local result = ""
-  for i = 1, total do
-    local petID, speciesID, owned, customName, level, favorite, isRevoked, speciesName, icon, petType, companionID, tooltip, description, isWild, canBattle, isTradeable, isUnique, obtainable = C_PetJournal.GetPetInfoByIndex(i)
-    if canBattle and owned then
-      local slotted = C_PetJournal.PetIsSlotted(petID)
-      if slotted then
-        local health, maxHealth, power, speed, rarity = C_PetJournal.GetPetStats(petID)
+  for slot = 1,3 do
+    local petID, ability1, ability2, ability3, locked = C_PetJournal.GetPetLoadOutInfo(slot)
 
-        local color = dataobj:GetHealthColor(health, maxHealth)
+    local speciesID, customName, level, xp, maxXp, displayID, isFavorite, name, icon, petType, creatureID, sourceText, description, isWild, canBattle, tradable, unique, obtainable = C_PetJournal.GetPetInfoByPetID(petID)
 
-        result = result .. string.format("|T%s:16|t |cFF%s%d|r/%d ", icon, color, health, maxHealth)
+    local health, maxHealth, power, speed, rarity = C_PetJournal.GetPetStats(petID)
 
-        slot = slot + 1
-        if slot > 3 then
-          break
-        end
-      end
+    local color = dataobj:GetHealthColor(health, maxHealth)
+
+    result = result .. string.format("|T%s:16|t |cFF%s%d|r/%d ", icon, color, health, maxHealth)
+
+    if locked then
+      break
     end
   end
 
-  if slot <= 3 then
-    for i = slot, 3 do
-      result = result .. "|cFF888888Empty?|r "
-    end
-  end
   dataobj.text = result
 end)
 
