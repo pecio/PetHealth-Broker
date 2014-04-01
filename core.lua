@@ -119,13 +119,18 @@ function dataobj:OnTooltipShow()
     local speciesID, customName, level, xp, maxXp, displayID, isFavorite, name, icon, petType, creatureID, sourceText, description, isWild, canBattle, tradable, unique, obtainable = C_PetJournal.GetPetInfoByPetID(petID)
     self:AddDoubleLine(string.format("%s", class), string.format("%d/%d XP", xp, maxXp), 1, 1, 1, 1, 1, 1)
   end
+
+  -- Bottom instructions
+  self:AddLine(" ")
+  self:AddLine("Left Click to open Pet Journal")
+  self:AddLine("Right Click to open Options")
 end
 
 function dataobj:OnClick(button)
   if (button == "LeftButton") then
     TogglePetJournal(2)
   elseif (button == "RightButton") then
-    print("pending")
+    InterfaceOptionsFrame_OpenToCategory(PetHealthBroker.menu)
   end
 end
 
