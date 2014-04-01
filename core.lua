@@ -41,6 +41,10 @@ function PetHealthBroker:OnEnable()
   PetHealthBroker.menu = LibStub("AceConfigDialog-3.0"):AddToBlizOptions("PetHealth-Broker", "Pet Health", "Broker")
 end
 
+function PetHealthBroker:OnInitialize()
+  self.config = LibStub("AceDB-3.0"):New("PetHealthBrokerConfig")
+end
+
 f:SetScript("OnUpdate", function(self, elap)
   elapsed = elapsed + elap
   if elapsed < UPDATEPERIOD then return end
