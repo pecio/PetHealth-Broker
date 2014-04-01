@@ -98,7 +98,8 @@ end
 function dataobj:OnClick(button)
   if (button == "LeftButton") then
     if IsShiftKeyDown() then
-      print("Clearing all pet filters")
+      print("Clearing pet filters")
+      C_PetJournal.SetFlagFilter(LE_PET_JOURNAL_FLAG_COLLECTED, true)
       C_PetJournal.AddAllPetSourcesFilter()
       C_PetJournal.AddAllPetTypesFilter()
       C_PetJournal.SetSearchFilter("")
