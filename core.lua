@@ -25,6 +25,13 @@ local options = {
           desc = 'Show Percentages instead of current/max health',
           set = function(info, val) PetHealthBroker.config.profile.pct = val end,
           get = function(info) return PetHealthBroker.config.profile.pct end
+        },
+        cooldown = {
+          type = 'toggle',
+          name = 'Show Revive Battle Pets cooldown',
+          desc = 'Show cooldown time for Revive Battle Pets spell in bar',
+          set = function(info, val) PetHealthBroker.config.profile.cooldown = val end,
+          get = function(info) return PetHealthBroker.config.profile.cooldown end
         }
       }
     }
