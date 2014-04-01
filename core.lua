@@ -39,7 +39,6 @@ function PetHealthBroker:OnEnable()
 
   AceConfigReg:RegisterOptionsTable(PetHealthBroker.name, options)
   PetHealthBroker.menu = LibStub("AceConfigDialog-3.0"):AddToBlizOptions("PetHealth-Broker", "Pet Health", "Broker")
-  print("wassup")
 end
 
 f:SetScript("OnUpdate", function(self, elap)
