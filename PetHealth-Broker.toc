@@ -6,6 +6,6 @@
 ## LoadManagers: AddonLoader
 ## X-LoadOn-Always: delayed
 ## OptionalDeps: Ace3,BrokerPack
-Common/common.xml
-Locales/locales.xml
+Common\common.xml
+Locales\locales.xml
 pack.xml
