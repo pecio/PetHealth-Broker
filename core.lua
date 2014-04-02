@@ -268,7 +268,7 @@ end
 PetHealthBroker.eventHandler = function(self, event, ...)
   if event == "UNIT_SPELLCAST_SUCCEEDED" then
     local unit, name, rank, line, spellID = ...
-    if (spellID == 125439 or spellID == 133994) and unit == UnitGUID('player') then
+    if (spellID == 125439 or spellID == 133994) and unit == 'player' then
       PetHealthBroker:UpdateStatus()
     end
   elseif event == "PET_BATTLE_OVER" then
