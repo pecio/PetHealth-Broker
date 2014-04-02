@@ -4,8 +4,10 @@ local ldb = LibStub:GetLibrary("LibDataBroker-1.1")
 local AceConfig = LibStub("AceConfig-3.0")
 local AceConfigReg = LibStub("AceConfigRegistry-3.0")
 
+local L = LibStub("AceLocale-3.0"):GetLocale("PetHealthBroker")
+
 local UPDATEPERIOD, elapsed = 0.5, 0
-local dataobj = ldb:NewDataObject("Pet Health", { type = "data source", text = "Pet Health Info"})
+local dataobj = ldb:NewDataObject(L["Pet Health"], { type = "data source", text = "Pet Health Info"})
 local f = CreateFrame("frame")
 
 PetHealthBroker = LibStub("AceAddon-3.0"):NewAddon("PetHealth-Broker")
@@ -26,15 +28,15 @@ local options = {
           args = {
             pct = {
               type = 'toggle',
-              name = 'Show Percentages',
-              desc = 'Show Percentages instead of current/max health',
+              name = L['Show Percentages'],
+              desc = L['Show Percentages instead of current/max health'],
               set = function(info, val) PetHealthBroker.config.profile.pct = val end,
               get = function(info) return PetHealthBroker.config.profile.pct end
             },
             rarity = {
               type = 'toggle',
-              name = 'Show Rarity',
-              desc = 'Colorize max health or percent sign based on pet rarity',
+              name = L['Show Rarity'],
+              desc = L['Colorize max health or percent sign based on pet rarity'],
               set = function(info, val) PetHealthBroker.config.profile.rarity = val end,
               get = function(info) return PetHealthBroker.config.profile.rarity end
             }
@@ -49,15 +51,15 @@ local options = {
           args = {
             cooldown = {
               type = 'toggle',
-              name = 'Show Cooldown',
-              desc = 'Show cooldown time for Revive Battle Pets spell in bar',
+              name = L['Show Cooldown'],
+              desc = L['Show cooldown time for Revive Battle Pets spell in bar'],
               set = function(info, val) PetHealthBroker.config.profile.cooldown = val end,
               get = function(info) return PetHealthBroker.config.profile.cooldown end
             },
             chime = {
               type = 'toggle',
-              name = 'Play Sound Alert',
-              desc = 'Play the Level Up sound when cooldown finishes',
+              name = L['Play Sound Alert'],
+              desc = L['Play the Level Up sound when cooldown finishes'],
               set = function(info, val) PetHealthBroker.config.profile.chime = val end,
               get = function(info) return PetHealthBroker.config.profile.chime end
             }
@@ -88,7 +90,7 @@ function PetHealthBroker:OnEnable()
   options.args.profile = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.config)
 
   AceConfigReg:RegisterOptionsTable(PetHealthBroker.name, options)
-  PetHealthBroker.menu = LibStub("AceConfigDialog-3.0"):AddToBlizOptions("PetHealth-Broker", "Pet Health", "Broker")
+  PetHealthBroker.menu = LibStub("AceConfigDialog-3.0"):AddToBlizOptions("PetHealth-Broker", L["Pet Health"], "Broker")
 end
 
 function PetHealthBroker:OnInitialize()
@@ -190,9 +192,9 @@ function dataobj:OnTooltipShow()
 
   -- Bottom instructions
   self:AddLine(" ")
-  self:AddLine("Left Click to open Pet Journal")
-  self:AddLine("Right Click to open Options")
-  self:AddLine("Control-Left Click to rearrange pets by health")
+  self:AddLine(L["Left Click to open Pet Journal"])
+  self:AddLine(L["Right Click to open Options"])
+  self:AddLine(L["Control-Left Click to rearrange pets by health"])
 end
 
 function dataobj:OnClick(button)
