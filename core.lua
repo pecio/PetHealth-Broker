@@ -102,6 +102,8 @@ f:SetScript("OnUpdate", function(self, elap)
   for slot = 1,3 do
     local petID, ability1, ability2, ability3, locked = C_PetJournal.GetPetLoadOutInfo(slot)
 
+    if not petID then break end
+
     local speciesID, customName, level, xp, maxXp, displayID, isFavorite, name, icon, petType, creatureID, sourceText, description, isWild, canBattle, tradable, unique, obtainable = C_PetJournal.GetPetInfoByPetID(petID)
 
     local health, maxHealth, power, speed, rarity = C_PetJournal.GetPetStats(petID)
