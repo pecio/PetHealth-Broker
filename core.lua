@@ -189,11 +189,16 @@ function dataobj:OnTooltipShow()
   self:AddLine(" ")
   self:AddLine("Left Click to open Pet Journal")
   self:AddLine("Right Click to open Options")
+  self:AddLine("Control-Left Click to rearrange pets by health")
 end
 
 function dataobj:OnClick(button)
   if (button == "LeftButton") then
-    TogglePetJournal(2)
+    if IsControlKeyDown() then
+      PetHealthBroker:Rearrange()
+    else
+      TogglePetJournal(2)
+    end
   elseif (button == "RightButton") then
     InterfaceOptionsFrame_OpenToCategory(PetHealthBroker.menu)
   end
@@ -231,7 +236,7 @@ end
 function PetHealthBroker:Rearrange()
   local data = {}
   for slot = 1,3 do
-    local petID, ability1, ability2, ability3, locked = C_PetJournal.GetPetLoadoutInfo(slot)
+    local petID, ability1, ability2, ability3, locked = C_PetJournal.GetPetLoadOutInfo(slot)
 
     local health, maxHealth, power, speed, rarity = C_PetJournal.GetPetStats(petID)
 
