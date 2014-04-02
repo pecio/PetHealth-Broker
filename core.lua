@@ -42,6 +42,8 @@ local options = {
         },
         rbp = {
           type = 'group',
+          -- The following name will be overwriten with the spell name
+          -- in the current locale
           name = 'Revive Battle Pets',
           inline = true,
           args = {
