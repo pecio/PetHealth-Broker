@@ -1,6 +1,8 @@
 ## Interface: 50400
 ## Title: Pet Health
+## Title-esES: Salud de las Mascotas
 ## Notes: Battle Pet health watcher
+## Notes-esES: Monitor de la salud de las Mascotas de Batalla
 ## Author: Pecio
 ## SavedVariables: PetHealthBrokerConfig
 ## LoadManagers: AddonLoader
