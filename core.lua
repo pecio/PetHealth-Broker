@@ -103,6 +103,10 @@ f:SetScript("OnUpdate", function(self, elap)
 
   elapsed = 0
 
+  PetHealthBroker:UpdateStatus()
+end)
+
+function PetHealthBroker:UpdateStatus()
   local result = ""
   for slot = 1,3 do
     local petID, ability1, ability2, ability3, locked = C_PetJournal.GetPetLoadOutInfo(slot)
@@ -151,7 +155,7 @@ f:SetScript("OnUpdate", function(self, elap)
   end
 
   dataobj.text = result
-end)
+end
 
 function dataobj:OnTooltipShow()
   self:AddLine("Pet Health")
