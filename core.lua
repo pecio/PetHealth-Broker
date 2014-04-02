@@ -19,12 +19,26 @@ local options = {
       type = "group",
       name = "Main",
       args = {
-        pct = {
-          type = 'toggle',
-          name = 'Show Percentages',
-          desc = 'Show Percentages instead of current/max health',
-          set = function(info, val) PetHealthBroker.config.profile.pct = val end,
-          get = function(info) return PetHealthBroker.config.profile.pct end
+        health = {
+          type = 'group',
+          name = 'Health',
+          inline = true,
+          args = {
+            pct = {
+              type = 'toggle',
+              name = 'Show Percentages',
+              desc = 'Show Percentages instead of current/max health',
+              set = function(info, val) PetHealthBroker.config.profile.pct = val end,
+              get = function(info) return PetHealthBroker.config.profile.pct end
+            },
+            rarity = {
+              type = 'toggle',
+              name = 'Show Rarity',
+              desc = 'Colorize max health or percent sign based on pet rarity',
+              set = function(info, val) PetHealthBroker.config.profile.rarity = val end,
+              get = function(info) return PetHealthBroker.config.profile.rarity end
+            }
+          }
         },
         rbp = {
           type = 'group',
@@ -94,10 +108,16 @@ f:SetScript("OnUpdate", function(self, elap)
 
     local color = dataobj:GetHealthColor(health, maxHealth)
 
+    local qcolor = 'FFFFFFFF'
+    if PetHealthBroker.config.profile.rarity then
+      local r, g, b, hex = GetItemQualityColor(rarity - 1)
+      qcolor = hex
+    end
+
     if PetHealthBroker.config.profile.pct then
-      result = result .. string.format("|T%s:16|t |cFF%s%.1f|r|cFFFFFFFF%%|r ", icon, color, (health * 100.0) / maxHealth)
+      result = result .. string.format("|T%s:16|t |cFF%s%.1f|r|c%s%%|r ", icon, color, (health * 100.0) / maxHealth, qcolor)
     else
-      result = result .. string.format("|T%s:16|t |cFF%s%d|r/%d ", icon, color, health, maxHealth)
+      result = result .. string.format("|T%s:16|t |cFF%s%d|r/|c%s%d|r ", icon, color, health, qcolor, maxHealth)
     end
 
     if locked then
