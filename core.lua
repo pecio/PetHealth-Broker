@@ -227,3 +227,21 @@ function dataobj:GetHealthColor(current, max)
     return "FF0000"
   end
 end
+
+function PetHealthBroker:Rearrange()
+  local data = {}
+  for slot = 1,3 do
+    local petID, ability1, ability2, ability3, locked = C_PetJournal.GetPetLoadoutInfo(slot)
+
+    local health, maxHealth, power, speed, rarity = C_PetJournal.GetPetStats(petID)
+
+    data[slot] = { petID = petID, health = health }
+  end
+
+  table.sort(data, function(item1, item2) return item1.health > item2.health end)
+
+  -- We should only need to set the two first slots
+  for i=1,2 do
+    C_PetJournal.SetPetLoadOutInfo(i, data[i].petID)
+  end
+end
