@@ -3,6 +3,7 @@
 local ldb = LibStub:GetLibrary("LibDataBroker-1.1")
 local AceConfig = LibStub("AceConfig-3.0")
 local AceConfigReg = LibStub("AceConfigRegistry-3.0")
+local AceConsole = LibStub("AceConsole-3.0")
 
 local L = LibStub("AceLocale-3.0"):GetLocale("PetHealthBroker")
 
