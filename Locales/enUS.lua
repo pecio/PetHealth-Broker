@@ -19,6 +19,9 @@ L['With Level Up sound'] = true
 L['In chat'] = true
 L['Both'] = true
 
+-- In chat notification of RBP ready; %s us RBP name
+L['%s is ready'] = true
+
 -- Click instructions
 L['Left Click to open Pet Journal'] = true
 L['Right Click to open Options'] = true

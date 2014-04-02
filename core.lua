@@ -93,6 +93,7 @@ function PetHealthBroker:OnEnable()
   -- Get and store Revive Battle Pets icon and name
   local name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = GetSpellInfo(125439)
   PetHealthBroker.RBPicon = icon
+  PetHealthBroker.RBPname = name
 
   options.args.main.args.rbp.name = name
   options.args.profile = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.config)
@@ -163,8 +164,13 @@ function PetHealthBroker:UpdateStatus()
       local seg = cooldown % 60
       result = result .. string.format("|cFFFFFFFF%d:%02d|r", min, seg)
     else
-      if PetHealthBroker.inCooldown and PetHealthBroker.config.profile.chime then
-        PlaySound("LEVELUP")
+      if PetHealthBroker.inCooldown then
+        if PetHealthBroker.config.profile.notify == 'n2' or PetHealthBroker.config.profile.notify == 'n4' then -- sound or both
+          PlaySound("LEVELUP")
+        end
+        if PetHealthBroker.config.profile.notify == 'n3' or PetHealthBroker.config.profile.notify == 'n4' then -- chat or both
+          AceConsole:Printf(L["%s is ready"], PetHealthBroker.RBPname)
+        end
       end
       PetHealthBroker.inCooldown = false
       result = result .. string.format("|cFF00FF00%s|r", "Ready")
