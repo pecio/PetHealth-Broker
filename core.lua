@@ -78,14 +78,15 @@ function PetHealthBroker:OnEnable()
     LibStub("AceConfigDialog-3.0"):AddToBlizOptions("Broker", "Broker")
   end
 
+  -- Get and store Revive Battle Pets icon and name
+  local name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = GetSpellInfo(125439)
+  PetHealthBroker.RBPicon = icon
+
+  options.args.main.args.rbp.name = name
   options.args.profile = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.config)
 
   AceConfigReg:RegisterOptionsTable(PetHealthBroker.name, options)
   PetHealthBroker.menu = LibStub("AceConfigDialog-3.0"):AddToBlizOptions("PetHealth-Broker", "Pet Health", "Broker")
-
-  -- Get and store Revive Battle Pets icon
-  local name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = GetSpellInfo(125439)
-  PetHealthBroker.RBPicon = icon
 end
 
 function PetHealthBroker:OnInitialize()
