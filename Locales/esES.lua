@@ -1,6 +1,8 @@
 -- esES localization
 local L = LibStub("AceLocale-3.0"):NewLocale("PetHealthBroker", "esES")
 
+if not L then return end
+
 -- Title for DataBroker
 L['Pet Health'] = 'Salud de Mascota'
 
