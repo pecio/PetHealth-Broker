@@ -26,12 +26,26 @@ local options = {
           set = function(info, val) PetHealthBroker.config.profile.pct = val end,
           get = function(info) return PetHealthBroker.config.profile.pct end
         },
-        cooldown = {
-          type = 'toggle',
-          name = 'Show Revive Battle Pets cooldown',
-          desc = 'Show cooldown time for Revive Battle Pets spell in bar',
-          set = function(info, val) PetHealthBroker.config.profile.cooldown = val end,
-          get = function(info) return PetHealthBroker.config.profile.cooldown end
+        rbp = {
+          type = 'group',
+          name = 'Revive Battle Pets',
+          inline = true,
+          args = {
+            cooldown = {
+              type = 'toggle',
+              name = 'Show Cooldown',
+              desc = 'Show cooldown time for Revive Battle Pets spell in bar',
+              set = function(info, val) PetHealthBroker.config.profile.cooldown = val end,
+              get = function(info) return PetHealthBroker.config.profile.cooldown end
+            },
+            chime = {
+              type = 'toggle',
+              name = 'Play Sound Alert',
+              desc = 'Play the Level Up sound when cooldown finishes',
+              set = function(info, val) PetHealthBroker.config.profile.chime = val end,
+              get = function(info) return PetHealthBroker.config.profile.chime end
+            }
+          }
         }
       }
     }
@@ -96,10 +110,15 @@ f:SetScript("OnUpdate", function(self, elap)
     local start, duration, enabled = GetSpellCooldown(125439)
     local cooldown = start + duration - GetTime()
     if cooldown > 0 then
+      PetHealthBroker.inCooldown = true
       local min = math.floor(cooldown / 60)
       local seg = cooldown % 60
       result = result .. string.format("|cFFFFFFFF%d:%02d|r", min, seg)
     else
+      if PetHealthBroker.inCooldown and PetHealthBroker.config.profile.chime then
+        PlaySound("LEVELUP")
+      end
+      PetHealthBroker.inCooldown = false
       result = result .. string.format("|cFF00FF00%s|r", "Ready")
     end
   end
