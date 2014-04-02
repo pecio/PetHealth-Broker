@@ -91,6 +91,11 @@ function PetHealthBroker:OnEnable()
 
   AceConfigReg:RegisterOptionsTable(PetHealthBroker.name, options)
   PetHealthBroker.menu = LibStub("AceConfigDialog-3.0"):AddToBlizOptions("PetHealth-Broker", L["Pet Health"], "Broker")
+
+  -- Register event handler
+  f:SetScript("OnEvent", PetHealthBroker.eventHandler)
+  f:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
+  f:RegisterEvent("PET_BATTLE_OVER")
 end
 
 function PetHealthBroker:OnInitialize()
@@ -260,7 +265,7 @@ function PetHealthBroker:Rearrange()
   end
 end
 
-function PetHealthBroker:EventHandler(self, event, ...)
+PetHealthBroker.eventHandler = function(self, event, ...)
   if event == "UNIT_SPELLCAST_SUCCEEDED" then
     local unit, name, rank, line, spellID = ...
     if (spellID == 125439 or spellID == 133994) and unit == UnitGUID('player') then
