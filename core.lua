@@ -56,12 +56,19 @@ local options = {
               set = function(info, val) PetHealthBroker.config.profile.cooldown = val end,
               get = function(info) return PetHealthBroker.config.profile.cooldown end
             },
-            chime = {
-              type = 'toggle',
-              name = L['Play Sound Alert'],
-              desc = L['Play the Level Up sound when cooldown finishes'],
-              set = function(info, val) PetHealthBroker.config.profile.chime = val end,
-              get = function(info) return PetHealthBroker.config.profile.chime end
+            notify = {
+              type = 'select',
+              name = L['Notify Availability'],
+              desc = L['Notify the player when cooldown time finishes'],
+              -- Weird option names, as AceConfig will sort by them
+              values = {
+                n1 = L['None'],
+                n2 = L['With Level Up sound'],
+                n3 = L['In chat'],
+                n4 = L['Both']
+              },
+              set = function(info, val) PetHealthBroker.config.profile.notify = val end,
+              get = function(info) return PetHealthBroker.config.profile.notify end
             }
           }
         }
@@ -100,6 +107,10 @@ end
 
 function PetHealthBroker:OnInitialize()
   self.config = LibStub("AceDB-3.0"):New("PetHealthBrokerConfig")
+  -- Default for notify
+  if not self.config.profile.notify then
+    self.config.profile.notify = 'n1' -- None
+  end
 end
 
 f:SetScript("OnUpdate", function(self, elap)

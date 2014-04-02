@@ -11,8 +11,13 @@ L['Show Rarity'] = true
 L['Colorize max health or percent sign based on pet rarity'] = true
 L['Show Cooldown'] = true
 L['Show cooldown time for Revive Battle Pets spell in bar'] = true
-L['Play Sound Alert'] = true
-L['Play the Level Up sound when cooldown finishes'] = true
+-- Revive Battle Pets availability notification config
+L['Notify Availability'] = true
+L['Notify the player when cooldown time finishes'] = true
+L['None'] = true
+L['With Level Up sound'] = true
+L['In chat'] = true
+L['Both'] = true
 
 -- Click instructions
 L['Left Click to open Pet Journal'] = true
