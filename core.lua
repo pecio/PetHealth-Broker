@@ -169,7 +169,7 @@ function PetHealthBroker:UpdateStatus()
           PlaySound("LEVELUP")
         end
         if PetHealthBroker.config.profile.notify == 'n3' or PetHealthBroker.config.profile.notify == 'n4' then -- chat or both
-          AceConsole:Printf(L["%s is ready"], PetHealthBroker.RBPname)
+          AceConsole:Printf(L["%s is ready"], string.format("|T%s:16|t %s", PetHealthBroker.RBPicon, PetHealthBroker.RBPname))
         end
       end
       PetHealthBroker.inCooldown = false
