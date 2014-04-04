@@ -3,7 +3,6 @@
 local ldb = LibStub:GetLibrary("LibDataBroker-1.1")
 local AceConfig = LibStub("AceConfig-3.0")
 local AceConfigReg = LibStub("AceConfigRegistry-3.0")
-local AceConsole = LibStub("AceConsole-3.0")
 
 local L = LibStub("AceLocale-3.0"):GetLocale("PetHealthBroker")
 
@@ -11,7 +10,7 @@ local UPDATEPERIOD, elapsed = 0.5, 0
 local dataobj = ldb:NewDataObject(L["Pet Health"], { type = "data source", text = "Pet Health Info"})
 local f = CreateFrame("frame")
 
-PetHealthBroker = LibStub("AceAddon-3.0"):NewAddon("PetHealth-Broker")
+PetHealthBroker = LibStub("AceAddon-3.0"):NewAddon("PetHealth-Broker", 'AceConsole-3.0')
 
 local rearrangeOptions = {
   c1 = L['Nothing'],
@@ -200,7 +199,7 @@ function PetHealthBroker:UpdateStatus()
           PlaySound("LEVELUP")
         end
         if PetHealthBroker.config.profile.notify == 'n3' or PetHealthBroker.config.profile.notify == 'n4' then -- chat or both
-          AceConsole:Printf(L["%s is ready"], string.format("|T%s:16|t %s", PetHealthBroker.RBPicon, PetHealthBroker.RBPname))
+          PetHealthBroker:Printf(L["%s is ready"], string.format("|T%s:16|t %s", PetHealthBroker.RBPicon, PetHealthBroker.RBPname))
         end
       end
       PetHealthBroker.inCooldown = false
@@ -285,17 +284,42 @@ function dataobj:GetHealthColor(current, max)
   return string.format("%02X%02X00", r, g)
 end
 
-function PetHealthBroker:Rearrange()
+function PetHealthBroker:Rearrange(mode)
+  if mode == 'c1' then return end
+
   local data = {}
   for slot = 1,3 do
     local petID, ability1, ability2, ability3, locked = C_PetJournal.GetPetLoadOutInfo(slot)
 
     local health, maxHealth, power, speed, rarity = C_PetJournal.GetPetStats(petID)
+    local speciesID, customName, level, xp, maxXp, displayID, isFavorite, name, icon, petType, creatureID, sourceText, description, isWild, canBattle, tradable, unique, obtainable = C_PetJournal.GetPetInfoByPetID(petID)
 
-    data[slot] = { petID = petID, health = health }
+    data[slot] = { petID = petID, health = health, max = maxHealth, level = level }
   end
 
-  table.sort(data, function(item1, item2) return item1.health > item2.health end)
+  local sortFunction
+  if mode == 'c2' then -- healthiest (absolute) first
+    sortFunction = function(pet1, pet2)
+      return pet1.health > pet2.health
+    end
+  elseif mode == 'c3' then -- healthiest (relative) first
+    sortFunction = function(pet1, pet2)
+      return pet1.health / pet1.max > pet2.health / pet2.max
+    end
+  elseif mode == 'c4' then -- Lowest level first
+    sortFunction = function(pet1, pet2)
+      return pet1.level < pet2.level
+    end
+  elseif mode == 'c5' then -- Highest level first
+    sortFunction = function(pet1, pet2)
+      return pet1.level > pet2.level
+    end
+  else
+    PetHealthBroker:Printf("unknown click mode: %s!", mode or 'nil')
+    return
+  end
+
+  table.sort(data, sortFunction)
 
   -- We should only need to set the two first slots
   for i=1,2 do
