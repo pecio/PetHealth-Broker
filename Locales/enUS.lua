@@ -18,6 +18,17 @@ L['None'] = true
 L['With Level Up sound'] = true
 L['In chat'] = true
 L['Both'] = true
+-- Click configuration config
+L['One Click Rearrange'] = true
+L['Nothing'] = true
+L['Healthiest first (absolute)'] = true
+L['Healthiest first (relative)'] = true
+L['Lowest level first'] = true
+L['Highest level first'] = true
+L['Control Left Click'] = true
+L['Action to perform when Control Left Clicking in the text'] = true
+L['Alt Left Click'] = true
+L['Action to perform when Alt Left Clicking in the text'] = true
 
 -- In chat notification of RBP ready; %s us RBP name
 L['%s is ready'] = true

@@ -13,6 +13,14 @@ local f = CreateFrame("frame")
 
 PetHealthBroker = LibStub("AceAddon-3.0"):NewAddon("PetHealth-Broker")
 
+local rearrangeOptions = {
+  c1 = L['Nothing'],
+  c2 = L['Healthiest first (absolute)'],
+  c3 = L['Healthiest first (relative)'],
+  c4 = L['Lowest level first'],
+  c5 = L['Highest level first']
+}
+
 local options = {
   name = "PetHealth-Broker",
   handler = PetHealthBroker,
@@ -70,6 +78,29 @@ local options = {
               },
               set = function(info, val) PetHealthBroker.config.profile.notify = val end,
               get = function(info) return PetHealthBroker.config.profile.notify end
+            }
+          }
+        },
+        multiclick = {
+          type = 'group',
+          name = L['One Click Rearrange'],
+          inline = true,
+          args = {
+            control = {
+              type = 'select',
+              name = L['Control Left Click'],
+              desc = L['Action to perform when Control Left Clicking in the text'],
+              values = rearrangeOptions,
+              set = function(info, val) PetHealthBroker.config.profile.controlClick = val end,
+              get = function(info) return PetHealthBroker.config.profile.controlClick end
+            },
+            alt = {
+              type = 'select',
+              name = L['Alt Left Click'],
+              desc = L['Action to perform when Alt Left Clicking in the text'],
+              values = rearrangeOptions,
+              set = function(info, val) PetHealthBroker.config.profile.altClick = val end,
+              get = function(info) return PetHealthBroker.config.profile.altClick end
             }
           }
         }
