@@ -108,6 +108,17 @@ local options = {
   }
 }
 
+local defaultOptions = {
+  profile = {
+    rarity = false,
+    notify = 'n1',
+    pct = false,
+    cooldown = true,
+    controlClick = 'c2',
+    altClick = 'c4'
+  }
+}
+
 function PetHealthBroker:OnEnable()
   local brokerOptions = AceConfigReg:GetOptionsTable("Broker", "dialog", "LibDataBroker-1.1")
   if not brokerOptions then
@@ -138,17 +149,7 @@ function PetHealthBroker:OnEnable()
 end
 
 function PetHealthBroker:OnInitialize()
-  self.config = LibStub("AceDB-3.0"):New("PetHealthBrokerConfig")
-  -- Default for notify
-  if not self.config.profile.notify then
-    self.config.profile.notify = 'n1' -- None
-  end
-  if not self.config.profile.controlClick then
-    self.config.profile.controlClick = 'c2' -- Highest absolute health first
-  end
-  if not self.config.profile.altClick then
-    self.config.profile.altClick = 'c4' -- Lowest level first
-  end
+  self.config = LibStub("AceDB-3.0"):New("PetHealthBrokerConfig", defaultOptions, true)
 end
 
 f:SetScript("OnUpdate", function(self, elap)
