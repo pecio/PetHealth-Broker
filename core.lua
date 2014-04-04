@@ -257,7 +257,9 @@ end
 function dataobj:OnClick(button)
   if (button == "LeftButton") then
     if IsControlKeyDown() then
-      PetHealthBroker:Rearrange()
+      PetHealthBroker:Rearrange(PetHealthBroker.config.profile.controlClick)
+    elseif IsAltKeyDown() then
+      PetHealthBroker:Rearrange(PetHealthBroler.config.profile.altClick)
     else
       TogglePetJournal(2)
     end
