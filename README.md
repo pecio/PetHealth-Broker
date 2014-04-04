@@ -15,4 +15,4 @@ health information for the Battle Pets minigame pets currently *slotted*
 * Pet level, rarity (by color), type and experience visible in tooltip
 * Optionally show rarity color in the bar text
 * One click toggle Pet Journal dialog
-* One click rearrange pets in slots by current health
+* Configurable one click rearrange active pets
