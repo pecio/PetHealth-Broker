@@ -143,6 +143,12 @@ function PetHealthBroker:OnInitialize()
   if not self.config.profile.notify then
     self.config.profile.notify = 'n1' -- None
   end
+  if not self.config.profile.controlClick then
+    self.config.profile.controlClick = 'c2' -- Highest absolute health first
+  end
+  if not self.config.profile.altClick then
+    self.config.profile.altClick = 'c4' -- Lowest level first
+  end
 end
 
 f:SetScript("OnUpdate", function(self, elap)
