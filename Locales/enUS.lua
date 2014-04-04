@@ -36,4 +36,5 @@ L['%s is ready'] = true
 -- Click instructions
 L['Left Click to open Pet Journal'] = true
 L['Right Click to open Options'] = true
-L['Control-Left Click to rearrange pets by health'] = true
+L['Control-Left Click to Rearrange %s'] = true
+L['Alt-Left Click to Rearrange %s'] = true
