@@ -249,8 +249,8 @@ function dataobj:OnLeave()
 end
 
 function dataobj:GetHealthColor(current, max)
-  local r = (255 * (max - current)) / max
-  local g = (255 * current) / max
+  local r = math.min(255, (510 * (max - current)) / max)
+  local g = math.min(255, (510 * current) / max)
   return string.format("%02X%02X00", r, g)
 end
 
