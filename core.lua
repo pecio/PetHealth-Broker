@@ -251,10 +251,10 @@ function dataobj:OnTooltipShow()
   self:AddLine(" ")
   self:AddLine(L["Left Click to open Pet Journal"])
   self:AddLine(L["Right Click to open Options"])
-  if (PetHealthBroker.config.profile.controlClick != 'c1') then
+  if (not (PetHealthBroker.config.profile.controlClick == 'c1')) then
     self:AddLine(string.format(L["Control-Left Click to Rearrange %s"], rearrangeOptions[PetHealthBroker.config.profile.controlClick]))
   end
-  if (PetHealthBroker.config.profile.altClick != 'c1') then
+  if (not (PetHealthBroker.config.profile.altClick == 'c1')) then
     self:AddLine(string.format(L["Alt-Left Click to Rearrange %s"], rearrangeOptions[PetHealthBroker.config.profile.altClick]))
   end
 end
