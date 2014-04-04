@@ -249,20 +249,9 @@ function dataobj:OnLeave()
 end
 
 function dataobj:GetHealthColor(current, max)
-  local pct = (100.0 * current) / max -- just so we get a float
-  if pct == 100.0 then
-    return "00FF00"
-  elseif pct > 75.0 then
-    return "00DD00"
-  elseif pct > 50.0 then
-    return "88DD00"
-  elseif pct > 25.0 then
-    return "DD8800"
-  elseif pct > 0.0 then
-    return "DD0000"
-  else
-    return "FF0000"
-  end
+  local r = (255 * (max - current)) / max
+  local g = (255 * current) / max
+  return string.format("%02X%02X00", r, g)
 end
 
 function PetHealthBroker:Rearrange()
