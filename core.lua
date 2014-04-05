@@ -299,7 +299,9 @@ function dataobj:GetHealthColor(current, max)
 end
 
 function PetHealthBroker:Rearrange(mode)
-  if mode == 'c1' then return end
+  -- Do nothing if configured so or if player is in combat
+  -- (changing active pets is a protected action)
+  if mode == 'c1' or InCombatLockdown() then return end
 
   local data = {}
   for slot = 1,3 do
