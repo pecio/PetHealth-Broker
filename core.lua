@@ -50,36 +50,6 @@ local options = {
             }
           }
         },
-        rbp = {
-          type = 'group',
-          -- The following name will be overwriten with the spell name
-          -- in the current locale
-          name = 'Revive Battle Pets',
-          inline = true,
-          args = {
-            cooldown = {
-              type = 'toggle',
-              name = L['Show Cooldown'],
-              desc = L['Show cooldown time for Revive Battle Pets spell in bar'],
-              set = function(info, val) PetHealthBroker.config.profile.cooldown = val end,
-              get = function(info) return PetHealthBroker.config.profile.cooldown end
-            },
-            notify = {
-              type = 'select',
-              name = L['Notify Availability'],
-              desc = L['Notify the player when cooldown time finishes'],
-              -- Weird option names, as AceConfig will sort by them
-              values = {
-                n1 = L['None'],
-                n2 = L['With Level Up sound'],
-                n3 = L['In chat'],
-                n4 = L['Both']
-              },
-              set = function(info, val) PetHealthBroker.config.profile.notify = val end,
-              get = function(info) return PetHealthBroker.config.profile.notify end
-            }
-          }
-        },
         multiclick = {
           type = 'group',
           name = L['One Click Rearrange'],
@@ -111,9 +81,7 @@ local options = {
 local defaultOptions = {
   profile = {
     rarity = false,
-    notify = 'n1',
     pct = false,
-    cooldown = true,
     controlClick = 'c2',
     altClick = 'c4'
   }
@@ -131,12 +99,6 @@ function PetHealthBroker:OnEnable()
     LibStub("AceConfigDialog-3.0"):AddToBlizOptions("Broker", "Broker")
   end
 
-  -- Get and store Revive Battle Pets icon and name
-  local name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = GetSpellInfo(125439)
-  PetHealthBroker.RBPicon = icon
-  PetHealthBroker.RBPname = name
-
-  options.args.main.args.rbp.name = name
   options.args.profile = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.config)
 
   AceConfigReg:RegisterOptionsTable(PetHealthBroker.name, options)
@@ -188,29 +150,6 @@ function PetHealthBroker:UpdateStatus()
 
     if locked then
       break
-    end
-  end
-
-  if PetHealthBroker.config.profile.cooldown then
-    result = result .. string.format("|T%s:16|t ", PetHealthBroker.RBPicon)
-    local start, duration, enabled = GetSpellCooldown(125439)
-    local cooldown = start + duration - GetTime()
-    if cooldown > 0 then
-      PetHealthBroker.inCooldown = true
-      local min = math.floor(cooldown / 60)
-      local seg = cooldown % 60
-      result = result .. string.format("|cFFFFFFFF%d:%02d|r", min, seg)
-    else
-      if PetHealthBroker.inCooldown then
-        if PetHealthBroker.config.profile.notify == 'n2' or PetHealthBroker.config.profile.notify == 'n4' then -- sound or both
-          PlaySound("LEVELUP")
-        end
-        if PetHealthBroker.config.profile.notify == 'n3' or PetHealthBroker.config.profile.notify == 'n4' then -- chat or both
-          PetHealthBroker:Printf(L["%s is ready"], string.format("|T%s:16|t %s", PetHealthBroker.RBPicon, PetHealthBroker.RBPname))
-        end
-      end
-      PetHealthBroker.inCooldown = false
-      result = result .. string.format("|cFF00FF00%s|r", "Ready")
     end
   end
 

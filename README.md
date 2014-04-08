@@ -11,7 +11,6 @@ health information for the Battle Pets minigame pets currently *slotted*
 ## Features
 * Ability to either show current/max health or a percentage
 * Show current pet icons in the bar
-* Ability to show the Revive Battle Pets ability cooldown remaining
 * Pet level, rarity (by color), type and experience visible in tooltip
 * Optionally show rarity color in the bar text
 * One click toggle Pet Journal dialog
