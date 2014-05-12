@@ -143,9 +143,9 @@ function PetHealthBroker:UpdateStatus()
     end
 
     if PetHealthBroker.config.profile.pct then
-      result = result .. string.format("|T%s:16|t |cFF%s%.1f|r|c%s%%|r ", icon, color, (health * 100.0) / maxHealth, qcolor)
+      result = result .. string.format("|T%s:16|t|cFF%s%.1f|r|c%s%%|r ", icon, color, (health * 100.0) / maxHealth, qcolor)
     else
-      result = result .. string.format("|T%s:16|t |cFF%s%d|r/|c%s%d|r ", icon, color, health, qcolor, maxHealth)
+      result = result .. string.format("|T%s:16|t|cFF%s%d|r/|c%s%d|r ", icon, color, health, qcolor, maxHealth)
     end
 
     if locked then
