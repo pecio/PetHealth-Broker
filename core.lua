@@ -220,7 +220,7 @@ function dataobj:OnClick(button)
 end
 
 function dataobj:OnEnter()
-  GameTooltip:SetOwoner(self, "ANCHOR_NONE")
+  GameTooltip:SetOwner(self, "ANCHOR_NONE")
   GameTooltip:SetPoint("TOPLEFT", self, "BOTTOMLEFT")
   GameTooltip:ClearLines()
   dataobj.OnTooltipShow(GameTooltip)
