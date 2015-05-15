@@ -1,4 +1,4 @@
-## Interface: 50400
+## Interface: 60100
 ## Title: Pet Health
 ## Title-esES: Salud de las Mascotas
 ## Notes: Battle Pet health watcher
@@ -8,6 +8,8 @@
 ## LoadManagers: AddonLoader
 ## X-LoadOn-Always: delayed
 ## OptionalDeps: Ace3,BrokerPack
+## X-Localizations: enUS, enGB, esES
+## X-Category: battle-pets
 Common\common.xml
 Locales\locales.xml
 pack.xml
