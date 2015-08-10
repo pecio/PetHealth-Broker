@@ -1,4 +1,4 @@
-## Interface: 60100
+## Interface: 60200
 ## Title: Pet Health
 ## Title-esES: Salud de las Mascotas
 ## Notes: Battle Pet health watcher
