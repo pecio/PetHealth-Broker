@@ -212,7 +212,7 @@ function dataobj:OnClick(button)
     elseif IsAltKeyDown() then
       PetHealthBroker:Rearrange(PetHealthBroker.config.profile.altClick)
     else
-      TogglePetJournal(2)
+      ToggleCollectionsJournal(2)
     end
   elseif (button == "RightButton") then
     InterfaceOptionsFrame_OpenToCategory(PetHealthBroker.menu)
