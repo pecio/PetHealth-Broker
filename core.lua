@@ -104,6 +104,8 @@ function PetHealthBroker:OnEnable()
   AceConfigReg:RegisterOptionsTable(PetHealthBroker.name, options)
   PetHealthBroker.menu = LibStub("AceConfigDialog-3.0"):AddToBlizOptions("PetHealth-Broker", L["Pet Health"], "Broker")
 
+  dataobj.icon = "Interface\\Icons\\Petjournalportrait"
+
   -- Register event handler
   f:SetScript("OnEvent", PetHealthBroker.eventHandler)
   f:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
