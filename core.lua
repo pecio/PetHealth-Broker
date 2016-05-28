@@ -124,7 +124,7 @@ f:SetScript("OnUpdate", function(self, elap)
 end)
 
 function PetHealthBroker:UpdateStatus()
-  local result = ""
+  local result = {}
   for slot = 1,3 do
     local petID, ability1, ability2, ability3, locked = C_PetJournal.GetPetLoadOutInfo(slot)
 
@@ -143,9 +143,13 @@ function PetHealthBroker:UpdateStatus()
     end
 
     if PetHealthBroker.config.profile.pct then
-      result = result .. string.format("|T%s:16|t|cFF%s%.1f|r|c%s%%|r ", icon, color, (health * 100.0) / maxHealth, qcolor)
+      table.insert(result,
+        string.format("|T%s:16|t|cFF%s%.1f|r|c%s%%|r",
+          icon, color, (health * 100.0) / maxHealth, qcolor))
     else
-      result = result .. string.format("|T%s:16|t|cFF%s%d|r/|c%s%d|r ", icon, color, health, qcolor, maxHealth)
+      table.insert(result,
+        string.format("|T%s:16|t|cFF%s%d|r/|c%s%d|r",
+          icon, color, health, qcolor, maxHealth))
     end
 
     if locked then
@@ -153,7 +157,7 @@ function PetHealthBroker:UpdateStatus()
     end
   end
 
-  dataobj.text = result
+  dataobj.text = table.concat(result, " ")
 end
 
 function dataobj:OnTooltipShow()
