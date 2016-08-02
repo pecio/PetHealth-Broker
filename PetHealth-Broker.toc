@@ -1,9 +1,9 @@
-## Interface: 60200
+## Interface: 70000
 ## Title: Pet Health
 ## Title-esES: Salud de las Mascotas
 ## Notes: Battle Pet health watcher
 ## Notes-esES: Monitor de la salud de las Mascotas de Batalla
-## Version: 6.2.2
+## Version: 7.0b1
 ## Author: Pecio
 ## SavedVariables: PetHealthBrokerConfig
 ## LoadManagers: AddonLoader
