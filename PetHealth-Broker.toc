@@ -1,4 +1,4 @@
-## Interface: 70200
+## Interface: 70300
 ## Title: Pet Health
 ## Title-esES: Salud de las Mascotas
 ## Notes: Battle Pet health watcher
