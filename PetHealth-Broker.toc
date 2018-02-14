@@ -3,7 +3,7 @@
 ## Title-esES: Salud de las Mascotas
 ## Notes: Battle Pet health watcher
 ## Notes-esES: Monitor de la salud de las Mascotas de Batalla
-## Version: 7.2.0
+## Version: 7.3.0
 ## Author: Pecio
 ## SavedVariables: PetHealthBrokerConfig
 ## LoadManagers: AddonLoader
