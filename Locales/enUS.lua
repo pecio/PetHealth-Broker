@@ -7,8 +7,8 @@ L['Pet Health'] = true
 -- Configuration
 L['Show Percentages'] = true
 L['Show Percentages instead of current/max health'] = true
-L['Show Rarity'] = true
-L['Colorize max health or percent sign based on pet rarity'] = true
+L['Show Quality'] = true
+L['Colorize max health or percent sign based on pet quality'] = true
 -- Click configuration config
 L['One Click Rearrange'] = true
 L['Nothing'] = true

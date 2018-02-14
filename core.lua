@@ -41,12 +41,12 @@ local options = {
               set = function(info, val) PetHealthBroker.config.profile.pct = val end,
               get = function(info) return PetHealthBroker.config.profile.pct end
             },
-            rarity = {
+            quality = {
               type = 'toggle',
-              name = L['Show Rarity'],
-              desc = L['Colorize max health or percent sign based on pet rarity'],
-              set = function(info, val) PetHealthBroker.config.profile.rarity = val end,
-              get = function(info) return PetHealthBroker.config.profile.rarity end
+              name = L['Show Quality'],
+              desc = L['Colorize max health or percent sign based on pet quality'],
+              set = function(info, val) PetHealthBroker.config.profile.quality = val end,
+              get = function(info) return PetHealthBroker.config.profile.quality end
             }
           }
         },
@@ -80,7 +80,7 @@ local options = {
 
 local defaultOptions = {
   profile = {
-    rarity = false,
+    quality = false,
     pct = false,
     controlClick = 'c2',
     altClick = 'c4'
@@ -134,13 +134,13 @@ function PetHealthBroker:UpdateStatus()
 
     local speciesID, customName, level, xp, maxXp, displayID, isFavorite, name, icon, petType, creatureID, sourceText, description, isWild, canBattle, tradable, unique, obtainable = C_PetJournal.GetPetInfoByPetID(petID)
 
-    local health, maxHealth, power, speed, rarity = C_PetJournal.GetPetStats(petID)
+    local health, maxHealth, power, speed, quality = C_PetJournal.GetPetStats(petID)
 
     local color = dataobj:GetHealthColor(health, maxHealth)
 
     local qcolor = 'FFFFFFFF'
-    if PetHealthBroker.config.profile.rarity then
-      local r, g, b, hex = GetItemQualityColor(rarity - 1)
+    if PetHealthBroker.config.profile.quality then
+      local r, g, b, hex = GetItemQualityColor(quality - 1)
       qcolor = hex
     end
 
@@ -178,9 +178,9 @@ function dataobj:OnTooltipShow()
     end
 
     local speciesID, customName, level, xp, maxXp, displayID, isFavorite, name, icon, petType, creatureID, sourceText, description, isWild, canBattle, tradable, unique, obtainable = C_PetJournal.GetPetInfoByPetID(petID)
-    local health, maxHealth, power, speed, rarity = C_PetJournal.GetPetStats(petID)
-    -- rarity
-    local r, g, b, hex = GetItemQualityColor(rarity - 1)
+    local health, maxHealth, power, speed, quality = C_PetJournal.GetPetStats(petID)
+    -- quality
+    local r, g, b, hex = GetItemQualityColor(quality - 1)
 
     -- status
     local healthColor = dataobj:GetHealthColor(health, maxHealth)
@@ -252,7 +252,7 @@ function PetHealthBroker:Rearrange(mode)
   for slot = 1,3 do
     local petID, ability1, ability2, ability3, locked = C_PetJournal.GetPetLoadOutInfo(slot)
 
-    local health, maxHealth, power, speed, rarity = C_PetJournal.GetPetStats(petID)
+    local health, maxHealth, power, speed, quality = C_PetJournal.GetPetStats(petID)
     local speciesID, customName, level, xp, maxXp, displayID, isFavorite, name, icon, petType, creatureID, sourceText, description, isWild, canBattle, tradable, unique, obtainable = C_PetJournal.GetPetInfoByPetID(petID)
 
     data[slot] = { petID = petID, health = health, max = maxHealth, level = level }

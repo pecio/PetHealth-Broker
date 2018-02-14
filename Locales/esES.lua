@@ -9,8 +9,8 @@ L['Pet Health'] = 'Salud de Mascota'
 -- Configuration
 L['Show Percentages'] = 'Mostrar Porcentajes'
 L['Show Percentages instead of current/max health'] = 'Mostrar Porcentages en lugar de salud actual/máxima'
-L['Show Rarity'] = 'Mostrar Rareza'
-L['Colorize max health or percent sign based on pet rarity'] = 'Colorear la salud máxima o el simbolo de tanto porciento basándonos en la rareza de la mascota'
+L['Show Quality'] = 'Mostrar Calidad'
+L['Colorize max health or percent sign based on pet quality'] = 'Colorear la salud máxima o el simbolo de tanto porciento basándonos en la calidad de la mascota'
 -- Click configuration config
 L['One Click Rearrange'] = 'Reorganizar con un Click'
 L['Nothing'] = 'Nada'
