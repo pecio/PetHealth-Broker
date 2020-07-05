@@ -1,9 +1,9 @@
-## Interface: 70300
+## Interface: 80300
 ## Title: Pet Health
 ## Title-esES: Salud de las Mascotas
 ## Notes: Battle Pet health watcher
 ## Notes-esES: Monitor de la salud de las Mascotas de Batalla
-## Version: 7.3.0
+## Version: 8.3.0
 ## Author: Pecio
 ## SavedVariables: PetHealthBrokerConfig
 ## LoadManagers: AddonLoader
